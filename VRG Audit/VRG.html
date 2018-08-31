@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+    <TITLE>JavaScript Sample Page</TITLE>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <SCRIPT language="JavaScript" type="text/javascript">
+
+        // create function hostConn() which is called by "ScriptOnInitComplete" in the Object Tag
+        function hostConn() {
+
+            // instantiate the BlueZone Object
+            host = new ActiveXObject("BZWhll.WhllObj");
+            ResultCode = host.Connect("B");
+
+            if (ResultCode != 0)
+
+                // display an error message if can't connect
+                host.MsgBox("Error connecting to session B!", 48);
+        }
+
+        // log on to the host
+        function logOn() {
+            hostConn();
+
+            //turns input into useable values
+            var username = $('#input-username').val().trim();
+            var location = $('#input-location').val().trim();
+            var eid = $('#input-eid').val().trim();
+            var password = $('#input-password').val().trim();
+
+            //console log tests
+            console.log($('#input-username').val());
+            console.log($('#input-location').val());
+            console.log($('#input-eid').val());
+            console.log($('#input-password').val());
+
+            console.log(username);
+            console.log(username);
+            console.log(location);
+            console.log(eid);
+            console.log(password);
+
+
+            // host.SendKey( "TSO" );
+            // host.SendKey( "@E" );
+            // host.Wait( 1 );
+            // host.WaitReady( 10, 1 );
+            host.SendKey("@C");
+
+            host.WaitReady(10, 1);
+
+            host.SendKey("lsi@E");
+
+            host.WaitReady(10, 1);
+
+            // Grabs input from the Form
+
+            host.SendKey(username);
+            host.SendKey(location);
+            host.SendKey(eid);
+            host.SendKey(password);
+            host.SendKey("@E");
+            host.WaitReady(10, 1);
+            host.SendKey("@C");
+
+            host.WaitReady(10, 1);
+            host.Focus();
+
+        }
+
+        // *** GetCursor Example ***
+        function getCursor() {
+            var Row = new Object();
+            var Col = new Object();
+            host.GetCursor(Row, Col);
+            alert("The Row = " + Row.Num + ", the Column = " + Col.Num);
+            host.Focus();
+        }
+
+        // *** ReadScreen Example ***
+        function readScreen() {
+            var Buf = new Object();
+            host.ReadScreen(Buf, 8, 6, 19);
+            alert("The contents of Buf = " + Buf.Str);
+            host.Focus();
+        }
+
+        // *** ReadScreen Example ***
+        function readScreen() {
+            var Buf = new Object();
+            host.ReadScreen(Buf, 8, 6, 19);
+            alert("The contents of Buf = " + Buf.Str);
+            host.Focus();
+        }
+
+        // disconnect the BlueZone Object
+        function disconnObj() {
+            alert("BZHAO Disconnected!");
+            host.disconnect();
+        }
+
+    </SCRIPT>
+</HEAD>
+
+<BODY>
+
+    <DIV Style="Position:Absolute;Left:10px;Top:50px">
+
+        <OBJECT ID="BlueZone Web-to-host Control Module v5" CLASSID="clsid:037790A6-1576-11D6-903D-00105AABADD3" CODEBASE="../controls/sglw2hcm.ocx#Version=-1,-1,-1,-1"
+            HEIGHT=480 WIDTH=740>
+            <PARAM NAME="IniFile" VALUE="default.ini">
+            <PARAM NAME="Sessions" VALUE="MD_S1">
+            <PARAM NAME="DistFile" VALUE="default.dst">
+            <PARAM NAME="MD_S1" VALUE="mainframe.zmd">
+            <PARAM NAME="MD_S1_Save" VALUE="Yes">
+            <PARAM NAME="ScriptLanguage" VALUE="JavaScript">
+            <PARAM NAME="ScriptOnInitComplete" VALUE="hostConn()">
+            <PARAM NAME="MD_S1_RunInBrowser" VALUE="Position">
+        </OBJECT>
+
+    </DIV>
+
+    <FORM>
+        <INPUT NAME="submit" TYPE=Button VALUE="Log On" onClick="logOn()">
+        <INPUT NAME="submit" TYPE=Button VALUE="Perform GetCursor" onClick="getCursor()">
+        <INPUT NAME="submit" TYPE=Button VALUE="Perform ReadScreen" onClick="readScreen()">
+        <INPUT NAME="submit" TYPE=Button VALUE="Log Off" onClick="logOff()">
+        <INPUT NAME="submit" TYPE=Button VALUE="Disconnect" onClick="disconnObj()">
+        <br>
+        <br>
+        <input type="text" id="input-username">
+        <label for="input-username">Marsha User ID Number</label>
+        <br>
+        <input type="text" id="input-location">
+        <label for="input-location">Location</label>
+        <br>
+        <input type="text" id="input-eid">
+        <label for="input-eid">EID</label>
+        <br>
+        <input type="text" id="input-password">
+        <label for="input-password">EID Password</label>
+        <br>
+    </FORM>
+
+
+
+
+</BODY>
+
+</HTML>
