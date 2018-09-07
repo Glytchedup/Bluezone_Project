@@ -4,6 +4,12 @@
 <HEAD>
     <TITLE>JavaScript Sample Page</TITLE>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        #todo-item {
+            font-weight: 700;
+            font-size: 2em;
+        }
+    </style>
 
     <SCRIPT language="JavaScript" type="text/javascript">
 
@@ -71,7 +77,7 @@
         }
 
         // *** GetCursor Example ***
-        function getCursor() {
+        function VRG() {
             var Row = new Object();
             var Col = new Object();
             host.GetCursor(Row, Col);
@@ -97,9 +103,11 @@
 
         // disconnect the BlueZone Object
         function disconnObj() {
+            host = new ActiveXObject("BZWhll.WhllObj");
             alert("BZHAO Disconnected!");
             host.disconnect();
         }
+
 
     </SCRIPT>
 </HEAD>
@@ -121,10 +129,9 @@
         </OBJECT>
 
     </DIV>
-
     <FORM>
         <INPUT NAME="submit" TYPE=Button VALUE="Log On" onClick="logOn()">
-        <INPUT NAME="submit" TYPE=Button VALUE="Perform GetCursor" onClick="getCursor()">
+        <INPUT NAME="submit" TYPE=Button VALUE="Audit VRG" onClick="VRG()">
         <INPUT NAME="submit" TYPE=Button VALUE="Perform ReadScreen" onClick="readScreen()">
         <INPUT NAME="submit" TYPE=Button VALUE="Log Off" onClick="logOff()">
         <INPUT NAME="submit" TYPE=Button VALUE="Disconnect" onClick="disconnObj()">
@@ -143,9 +150,9 @@
         <label for="input-password">EID Password</label>
         <br>
     </FORM>
-
-
-
+    <br>
+    <br>
+    <br>
 
 </BODY>
 
